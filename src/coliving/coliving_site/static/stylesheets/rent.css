@@ -1,0 +1,15 @@
+.rent-wrapper {
+  background: #ABD2FA;
+  width: 100%;
+  min-height: 100vh;
+}
+.rent-wrapper h1 {
+  padding: 50px 0;
+  text-align: center;
+}
+.dialog {
+  margin: 0 auto;
+}
+.rent-container input {
+  display: inline-block;
+}

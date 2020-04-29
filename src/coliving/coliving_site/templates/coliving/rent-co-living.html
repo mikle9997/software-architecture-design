@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static "stylesheets/main.css" %}">
+  <link rel="stylesheet" href="{% static "stylesheets/rent.css" %}">
+</head>
+<body>
+  <header>
+    <a class="back-link" href="/">На главную</a>
+  </header>
+  <div class="rent-wrapper">
+    <h1>Заполните заявку</h1>
+    <div class="dialog">
+      <form>
+        <!-- <div class="input-container">
+          <input id="" type="text" placeholder="" class="input-field">
+          <label for="" class="textholder"></label>
+        </div> -->
+        <div class="input-container">
+          <input id="adress-field" type="text" name="adress" placeholder="Адресс места для коливинга" class="input-field" autocomplete="off">
+          <label for="adress-field" class="textholder">Адресс места для коливинга</label>
+        </div>
+        <div class="input-container">
+          <textarea id="description-field" type="text" name="description" placeholder="Описание" class="input-field" autocomplete="off"></textarea>
+          <label for="description-field" class="textholder">Описание</label>
+        </div>
+        <div class="input-container">
+          <input id="contact-field" type="text" name="contact" placeholder="Ваши контактные данные" class="input-field" autocomplete="off">
+          <label for="contact-field" class="textholder">Ваши контактные данные</label>
+        </div>
+        <input type="submit" value="Оставить заявку" class="styled-btn">
+      </form>
+    </div>
+  </div>
+  <script src="{% static "scripts/main.js" %}"></script>
+</body>
+</html>

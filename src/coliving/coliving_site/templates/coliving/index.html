@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static "stylesheets/main.css" %}">
+</head>
+<body>
+  <header>
+    <h3 onclick="toggleInfo()">Как это работает?</h3>
+    {% if not logined %}
+      <h3 onclick="toggleLogin()">Войти / Зарегистрироваться</h3>
+    {% else %}
+      <a>{{name}}</a>
+    {% endif %}
+  </header>
+  <div class="flex-wrapper">
+    <div class="container searching">
+      <div class="greetings">
+        <h2>Я ищу жилье!</h2>
+        <a href="search"><button class="styled-btn"
+          {% if not logined %}
+            {{'data-disabled-tooltip="Сначала нужно зарегистрироваться"'}}
+          {% endif %}
+        >Начать поиск</button></a>
+      </div>
+    </div>
+    <div class="container renting">
+      <div class="greetings">
+        <h2>Я сдаю жилье!</h2>
+        <a href="rent"><button class="styled-btn"
+          {% if not logined %}
+            {{'data-disabled-tooltip="Сначала нужно зарегистрироваться"'}}
+          {% endif %}
+        >Создать анкету</button></a>
+      </div>
+    </div>
+  </div>
+  <div class="placeholder placeholder-info">
+    <div class="dialog">
+      <h2>Как это работает?</h2>
+      <p>Люди, которые предлагают место жительства для коливинга, создают объявления. А люди, которые ищут коливинг, выбирают подходящее себе из списка!</p>
+      <button  class="styled-btn" onclick="toggleInfo()">Понятно</button>
+    </div>
+  </div>
+  <div class="placeholder placeholder-login">
+    <div class="dialog">
+      <div class="close-btn" onclick="toggleLogin()"></div>
+      <div class="tab">
+        <button class="styled-btn tablinks" onclick="openTab(event, 'Login')" id="defaultOpen">Войти</button>
+        <button class="styled-btn tablinks" onclick="openTab(event, 'Register')">Создать аккаунт</button>
+      </div>
+      <div id="Login" class="tabcontent">
+        <form>
+          <div class="input-container">
+            <input id="login-field" name="login" type="text" placeholder="Ваш логин" class="input-field" autocomplete="off">
+            <label for="login-field" class="textholder">Ваш логин</label>
+          </div>
+          <div class="input-container">
+            <input id="password-field" name="password" type="password" placeholder="Ваш пароль" class="input-field" autocomplete="off">
+            <label for="password-field" class="textholder">Ваш пароль</label>
+          </div>
+          <input type="submit" value="Войти" class="styled-btn">
+        </form>
+      </div>
+      <div id="Register" class="tabcontent">
+        <form>
+          <div class="input-container">
+            <input id="name-field" name="name" type="text" placeholder="Ваше имя" class="input-field" autocomplete="off">
+            <label for="name-field" class="textholder">Ваше полное имя</label>
+          </div>
+          <div class="input-container">
+            <input id="register-login-field" name="login" type="text" placeholder="Ваш логин" class="input-field" autocomplete="off">
+            <label for="register-login-field" class="textholder">Ваш логин</label>
+          </div>
+          <div class="input-container">
+            <input id="register-password-field" name="password" type="password" placeholder="Ваш пароль" class="input-field" autocomplete="off">
+            <label for="register-password-field" class="textholder">Ваш пароль</label>
+          </div>
+          <input type="submit" value="Зарегистрироваться" class="styled-btn">
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="tooltip"></div>
+  <script src="{% static "scripts/main.js" %}"></script>
+  <script src="{% static "scripts/tabs.js" %}"></script>
+</body>
+</html>
