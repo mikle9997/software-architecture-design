@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static "stylesheets/main.css" %}">
+  <link rel="stylesheet" href="{% static "stylesheets/account.css" %}">
+  <!-- <link rel="stylesheet" href="{% static "stylesheets/preloader.css" %}"> -->
+</head>
+<body>
+  {% csrf_token %}
+  <header>
+    <h3 id="logout">Выйти из аккаунта</h3>
+    <a class="back-link" href="/">На главную</a>
+  </header>
+  <div class="grid-wrapper">
+    <div class="col-1">
+      <div class="acc-info">
+        <div class="circle"></div>
+        <h2>{{name}}</h2>
+        <p></p>
+      </div>
+      <div class="acc-menu">
+        <button class="menu-btn tablinks" onclick="openTab(event, '1')" id="defaultOpen">
+          {% if roleUser %}
+            Список отправленных заявок
+          {% elif roleStaff %}
+            Список заявок
+          {% endif %}
+        </button>
+        <button class="menu-btn tablinks" onclick="openTab(event, '2')">Личная информация</button>
+      </div>
+    </div>
+    <div class="col4">
+      <div class="workspace">
+        <div id="1" class="tabcontent">
+          <h3>Список</h3>
+          <div class="requests-list">
+            {% for request in requests %}
+            <a href="">
+              <div class="request">
+                {% if request.isWatching %}
+                  <div class="state watching">На рассмотрении</div>
+                {% elif request.isOk %}
+                  <div class="state submit">Одобрено</div>
+                {% elif request.isBad %}
+                  <div class="state cancel">Отклонено</div>
+                {% endif %}
+                <img src="{% get_media_prefix %}{{ request.image }}">
+                <div class="text">
+                  <p>{{request.title}}</p>
+                  <p>{{request.description}}</p>
+                </div>
+              </div>
+            </a>
+            {% endfor%}
+          </div>
+        </div>
+        <div id="2" class="tabcontent">
+          <h3>Личная информация</h3>
+          <form id="data-form">
+            <div class="input-container">
+              <input id="name-field" name="name" type="text" placeholder="Ваше полное имя" class="input-field" autocomplete="off" value="{{userFullName}}">
+              <label for="name-field" class="textholder">Ваше полное имя</label>
+            </div>
+            <div class="input-container">
+              <input id="password-field" name="password" type="password" placeholder="Ваш пароль" class="input-field" autocomplete="off" value="{{userPassword}}">
+              <label for="password-field" class="textholder">Ваш пароль</label>
+            </div>
+            <div class="input-container">
+              <input id="contact-field" type="text" name="contact" placeholder="Ваши контактные данные" class="input-field" autocomplete="off" value="{{userContact}}">
+              <label for="contact-field" class="textholder">Ваши контактные данные</label>
+            </div>
+            <div id="error-msg" class="error-msg"></div>
+            <div id="ok-msg" class="ok-msg"></div>
+            <input type="submit" value="Изменить информацию" class="styled-btn">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="{% static "scripts/main.js" %}"></script>
+  <script src="{% static "scripts/tabs.js" %}"></script>
+  <script src="{% static "scripts/account.js" %}"></script>
+</body>
+</html>

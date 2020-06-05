@@ -1,0 +1,121 @@
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  padding-top: 80px;
+  grid-gap: 20px;
+  background-color: #7692FF;
+}
+.acc-info, .acc-menu, .workspace {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 20px;
+}
+.acc-info {
+  position: relative;
+}
+.acc-menu {
+  margin-top: 20px;
+}
+.workspace {
+}
+.circle {
+  border: 3px solid #091540;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  clip-path: polygon(0 0, 0 100%, 85% 100%, 85% 0);
+  animation: opening-circle .8s cubic-bezier(0,0,.58,1);
+  position: absolute;
+  top: 26px;
+  left: 21px;
+}
+@keyframes opening-circle {
+  from {
+    clip-path: polygon(0 0, 0 100%, 0 100%, 0 0);
+  }
+  30% {
+    clip-path: polygon(0 0, 0 100%, 0 100%, 0 0);
+  }
+  to {
+    clip-path: polygon(0 0, 0 100%, 85% 100%, 85% 0);
+  }
+}
+.menu-btn {
+  border: none;
+  font-size: 20px;
+  width: 100%;
+  background-color: #ebebeb;
+  cursor: pointer;
+  outline: none;
+  padding: 12px;
+  border-radius: 6px;
+}
+.menu-btn:not(:first-child) {
+  margin-top: 12px;
+}
+.menu-btn:hover {
+  background-color: #ddd;
+}
+.tabcontent {
+  margin: 0;
+}
+.requests-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding-top: 30px;
+  grid-gap: 20px;
+}
+.request {
+  width: 100%;
+  font-size: 18px;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.request img {
+  width: 100%;
+  height: auto;
+  transform: scale(1.05);
+}
+.request .text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 12px;
+  background-color: #000a;
+  color: #fff;
+  transform: translateY(calc(100% - 40px));
+  transition: 0.3s;
+}
+.request:hover .text {
+  transform: translateY(0);
+}
+.text p:first-child {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.state {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border-radius: 10px;
+  font-size: 16px;
+  z-index: 999;
+  padding: 3px 6px;
+}
+.watching {
+  background-color: #FFEE58;
+}
+.submit {
+  background-color: #66BB6A;
+}
+.cancel {
+  background-color: #ef5350;
+}
+#data-form {
+  margin: 24px 0;
+}
