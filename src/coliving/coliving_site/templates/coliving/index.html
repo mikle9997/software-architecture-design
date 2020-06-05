@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Коливинг</title>
   {% load static %}
   <link rel="stylesheet" href="{% static "stylesheets/main.css" %}">
 </head>
 <body>
+  {% csrf_token %}
   <header>
     <h3 onclick="toggleInfo()">Как это работает?</h3>
     {% if not logined %}
       <h3 onclick="toggleLogin()">Войти / Зарегистрироваться</h3>
     {% else %}
-      <a>{{name}}</a>
+      <a href="account">{{name}}</a>
     {% endif %}
   </header>
   <div class="flex-wrapper">
@@ -53,32 +54,38 @@
         <button class="styled-btn tablinks" onclick="openTab(event, 'Register')">Создать аккаунт</button>
       </div>
       <div id="Login" class="tabcontent">
-        <form>
+        <form id="login-form">
           <div class="input-container">
-            <input id="login-field" name="login" type="text" placeholder="Ваш логин" class="input-field" autocomplete="off">
+            <input id="login-field" name="login" type="text" placeholder="Ваш логин" class="input-field" autocomplete="off" required>
             <label for="login-field" class="textholder">Ваш логин</label>
           </div>
           <div class="input-container">
-            <input id="password-field" name="password" type="password" placeholder="Ваш пароль" class="input-field" autocomplete="off">
+            <input id="password-field" name="password" type="password" placeholder="Ваш пароль" class="input-field" autocomplete="off" required>
             <label for="password-field" class="textholder">Ваш пароль</label>
           </div>
+          <div id="login-error-msg" class="error-msg"></div>
           <input type="submit" value="Войти" class="styled-btn">
         </form>
       </div>
       <div id="Register" class="tabcontent">
-        <form>
+        <form id="register-form">
           <div class="input-container">
-            <input id="name-field" name="name" type="text" placeholder="Ваше имя" class="input-field" autocomplete="off">
+            <input id="name-field" name="name" type="text" placeholder="Ваше полное имя" class="input-field" autocomplete="off" required>
             <label for="name-field" class="textholder">Ваше полное имя</label>
           </div>
           <div class="input-container">
-            <input id="register-login-field" name="login" type="text" placeholder="Ваш логин" class="input-field" autocomplete="off">
+            <input id="register-login-field" name="login" type="text" placeholder="Ваш логин" class="input-field" autocomplete="off" required>
             <label for="register-login-field" class="textholder">Ваш логин</label>
           </div>
           <div class="input-container">
-            <input id="register-password-field" name="password" type="password" placeholder="Ваш пароль" class="input-field" autocomplete="off">
+            <input id="register-password-field" name="password" type="password" placeholder="Ваш пароль" class="input-field" autocomplete="off" required>
             <label for="register-password-field" class="textholder">Ваш пароль</label>
           </div>
+          <div class="input-container">
+            <input id="contact-field" type="text" name="contact" placeholder="Ваши контактные данные" class="input-field" autocomplete="off" required>
+            <label for="contact-field" class="textholder">Ваши контактные данные</label>
+          </div>
+          <div id="register-error-msg" class="error-msg"></div>
           <input type="submit" value="Зарегистрироваться" class="styled-btn">
         </form>
       </div>

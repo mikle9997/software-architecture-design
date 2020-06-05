@@ -1,0 +1,9 @@
+.wrapper {
+  background-color: #7692FF;
+  min-height: 100vh;
+  padding: 80px 0;
+}
+.dialog {
+  margin: 0 auto;
+  width: 1000px;
+}

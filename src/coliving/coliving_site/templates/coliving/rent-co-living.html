@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Заявка на создание коливинга</title>
   {% load static %}
   <link rel="stylesheet" href="{% static "stylesheets/main.css" %}">
   <link rel="stylesheet" href="{% static "stylesheets/rent.css" %}">
+  <link rel="stylesheet" href="{% static "stylesheets/preloader.css" %}">
 </head>
 <body>
+  {% csrf_token %}
   <header>
     <a class="back-link" href="/">На главную</a>
   </header>
@@ -21,21 +23,41 @@
           <label for="" class="textholder"></label>
         </div> -->
         <div class="input-container">
-          <input id="adress-field" type="text" name="adress" placeholder="Адресс места для коливинга" class="input-field" autocomplete="off">
+          <input id="adress-field" type="text" name="adress" placeholder="Адресс места для коливинга" class="input-field" autocomplete="off" required>
           <label for="adress-field" class="textholder">Адресс места для коливинга</label>
         </div>
         <div class="input-container">
-          <textarea id="description-field" type="text" name="description" placeholder="Описание" class="input-field" autocomplete="off"></textarea>
+          <textarea id="description-field" type="text" name="description" placeholder="Описание" class="input-field" autocomplete="off" required></textarea>
           <label for="description-field" class="textholder">Описание</label>
         </div>
         <div class="input-container">
-          <input id="contact-field" type="text" name="contact" placeholder="Ваши контактные данные" class="input-field" autocomplete="off">
-          <label for="contact-field" class="textholder">Ваши контактные данные</label>
+          <input id="file-field" type="file" name="file" class="input-field" accept=".jpg, .jpeg, .png" required>
+          <label for="file-field" id="dropbox">Выбрать изображения</label>
+          <div id="preloader">
+            <svg class="filter" version="1.1">
+              <defs>
+                <filter id="gooeyness">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10" result="gooeyness" />
+                  <feComposite in="SourceGraphic" in2="gooeyness" operator="atop" />
+                </filter>
+              </defs>
+            </svg>
+            <div class="dots">
+              <div class="dot mainDot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
+          <div id="choosen-images"></div>
         </div>
         <input type="submit" value="Оставить заявку" class="styled-btn">
       </form>
     </div>
   </div>
   <script src="{% static "scripts/main.js" %}"></script>
+  <script src="{% static "scripts/rent.js" %}"></script>
 </body>
 </html>

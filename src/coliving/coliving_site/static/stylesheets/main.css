@@ -13,6 +13,12 @@
 h1,h2,h3,h4,h5,h6 {
   color: #091540;
 }
+a {
+  text-decoration: none;
+}
+a:visited {
+  color: inherit;
+}
 header {
   position: absolute;
   top: 0;
@@ -25,6 +31,10 @@ header {
 header h3, header a {
   padding: 12px;
   cursor: pointer;
+  background-color: #fff;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  margin-right: 10px;
 }
 header a {
   color: #091540;
@@ -107,7 +117,7 @@ header a {
 .tab button {
   cursor: pointer;
   padding: 14px 16px;
-  transition: 0.3s;
+  transition: .3s;
   margin-top: 0;
   color: #091540;
   background-color: #fff;
@@ -219,4 +229,12 @@ form textarea {
   left: 10px;
   top: -4px;
   z-index: 20;
+}
+.error-msg, .ok-msg {
+  margin: 12px;
+  color: #e53935;
+  display: none;
+}
+.ok-msg {
+  color: #4CAF50;
 }

@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Поиск коливинга</title>
   {% load static %}
   <link rel="stylesheet" href="{% static "stylesheets/main.css" %}">
   <link rel="stylesheet" href="{% static "stylesheets/search.css" %}">
-  <link rel="stylesheet" href="{% static "stylesheets/search-animation.css" %}">
+  <link rel="stylesheet" href="{% static "stylesheets/preloader.css" %}">
 </head>
 <body>
+  {% csrf_token %}
   <header>
     <a class="back-link" href="/">На главную</a>
   </header>

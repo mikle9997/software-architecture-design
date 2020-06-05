@@ -4,7 +4,7 @@
   min-height: 100vh;
 }
 .rent-wrapper h1 {
-  padding: 50px 0;
+  padding: 80px 0;
   text-align: center;
 }
 .dialog {
@@ -12,4 +12,80 @@
 }
 .rent-container input {
   display: inline-block;
+}
+#file-field {
+  position: absolute;
+  opacity: 0;
+  z-index: -10;
+}
+#file-field ~ label {
+  width: 100%;
+  height: 140px;
+  text-align: center;
+  line-height: 80px;
+  display: block;
+  border-radius: 5px;
+  border: 1px #091540 dashed;
+  position: relative;
+  cursor: pointer;
+}
+#file-field ~ label::before, #file-field ~ label::after {
+  content: '';
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  background-color: #09154030;
+}
+#file-field ~ label::after {
+  top: 100px;
+  width: 50px;
+  clip-path: polygon(100% 0, 0 0, 50% 50%);
+}
+#choosen-images {
+  margin: 12px 0;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+#choosen-images div {
+  margin: 12px;
+}
+#choosen-images img {
+  width: 100%;
+  height: auto;
+  animation: fadingOut .3s;
+}
+#choosen-images p {
+  margin: 0;
+  font-size: 14px;
+  animation: fadingOut2 .6s;
+  word-wrap: break-word;
+}
+@keyframes fadingOut {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadingOut2 {
+  from {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+#preloader {
+  height: 120px;
+  display: none;
+  margin-top: 30px;
+  margin-left: 30px;
 }
