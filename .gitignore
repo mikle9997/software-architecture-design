@@ -2,3 +2,4 @@ newenv
 __pycache__
 *.sqlite3
 *.pyc
+media

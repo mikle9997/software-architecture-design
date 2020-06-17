@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    {% if isChanging %}
+      Редактирование
+    {% else %}
+      Создание нового
+    {% endif %}
+    аккаунта
+  </title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static "stylesheets/main.css" %}">
+  <link rel="stylesheet" href="{% static "stylesheets/accsettings.css" %}">
+</head>
+<body>
+  {% csrf_token %}
+  <header>
+    <a class="back-link" href="/">На главную</a>
+    <h3 onclick="window.history.go(-1);">Назад</h3>
+  </header>
+  <div class="wrapper">
+    <h1>
+      {% if isChanging %}
+        Редактирование
+      {% else %}
+        Создание нового 
+      {% endif %}
+      аккаунта
+    </h1>
+    <div class="dialog">
+      <form id="accsettings-form">
+        <div class="input-container">
+          <input id="name-field" name="name" type="text" placeholder="Полное имя" class="input-field" value="{{name}}" autocomplete="off" required>
+          <label for="name-field" class="textholder">Полное имя</label>
+        </div>
+        {% if not isChanging %}
+          <div class="input-container">
+            <input id="accsettings-login-field" name="login" type="text" placeholder="Логин" class="input-field" autocomplete="off" required>
+            <label for="accsettings-login-field" class="textholder">Логин</label>
+          </div>
+        {% endif %}
+        <div class="input-container">
+          <input id="accsettings-password-field" name="password" type="password" placeholder="Пароль" class="input-field" value="{{password}}" autocomplete="off" required>
+          <label for="accsettings-password-field" class="textholder">Пароль</label>
+        </div>
+        <div class="input-container">
+          <input id="contact-field" type="text" name="contact" placeholder="Контактные данные" class="input-field" value="{{contact}}" autocomplete="off" required>
+          <label for="contact-field" class="textholder">Контактные данные</label>
+        </div>
+        <div class="input-container">
+          <input id="role-field-1" type="radio" name="role" value="1" {% if isUser %} checked {% endif %} required>
+          <label for="role-field-1">Пользователь</label>
+        </div>
+        <div class="input-container">
+          <input id="role-field-2" type="radio" name="role" value="3" {% if isConsultant %} checked {% endif %} required>
+          <label for="role-field-2">Консультант</label>
+        </div>
+        <div class="input-container">
+          <input id="role-field-3" type="radio" name="role" value="2" {% if isOrganizer %} checked {% endif %} required>
+          <label for="role-field-3">Организатор</label>
+        </div>
+        <div id="accsettings-error-msg" class="error-msg"></div>
+        <input type="submit" value="{% if isChanging %}Сохранить{% else %}Создать{% endif %}" class="styled-btn">
+      </form>
+    </div>
+  </div>
+
+  <script src="{% static "scripts/main.js" %}"></script>
+  <script src="{% static "scripts/accsettings.js" %}"></script>
+</body>
+</html>

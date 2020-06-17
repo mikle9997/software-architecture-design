@@ -19,7 +19,13 @@ document.querySelector('#search-field').addEventListener('change', event => {
     }).then(response => {
       return response.json()
     }).then(data => {
-      data.forEach(loadAnnouncenets)
+      console.log('asd')
+      output.innerHTML = ''
+      if (data.length == 0) {
+        output.innerHTML = '<h4>Ничего не найдено</h4>'
+      } else {
+        data.forEach(loadAnnouncenets)
+      }
       preloader.style['display'] = 'none'
     })
   } else {
@@ -30,7 +36,7 @@ document.querySelector('#search-field').addEventListener('change', event => {
 
 const loadAnnouncenets = coliving => {
   output.innerHTML += 
-    `<a href="announcemet"><div class="announcemet">
+    `<a href="announcemet/${coliving.id}"><div class="announcemet">
       <div class="img-wrapper">
         <img src="${coliving.image}">
       </div>

@@ -7,34 +7,20 @@
   {% load static %}
   <link rel="stylesheet" href="{% static "stylesheets/main.css" %}">
   <link rel="stylesheet" href="{% static "stylesheets/announcemet.css" %}">
-  <link rel="stylesheet" href="{% static "stylesheets/slideshow.css" %}">
 </head>
 <body>
   <header>
     <a class="back-link" href="/">На главную</a>
+    <h3 onclick="window.history.go(-1);">Назад</h3>
   </header>
   <div class="wrapper">
     <div class="dialog">
-      <div class="slideshow-container">
-        <div class="mySlides fade">
-          <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1273&q=80">
-        </div>
-        <div class="mySlides fade">
-          <img src="https://images.unsplash.com/photo-1501183638710-841dd1904471?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
-        </div>
-        <div class="mySlides fade">
-          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
-        </div>
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-      </div>
-      <br>
-      <div class="dots"></div>
-      <h2>Уютная квартирка за КАД-ом</h2>
-      <p>Пожалуй, это самый лучший вариант, который мы можем предложить</p>
+      <img src="{{ image }}">
+      <h2>{{ title }}</h2>
+      <p class="adress">Адрес: {{ adress }}</p>
+      <p>{{ description }}</p>
     </div>
   </div>
   <script src="{% static "scripts/main.js" %}"></script>
-  <script src="{% static "scripts/slideshow.js" %}"></script>
 </body>
 </html>

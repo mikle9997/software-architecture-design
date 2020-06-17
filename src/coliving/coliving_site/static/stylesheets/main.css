@@ -6,6 +6,7 @@
   justify-content: center;
   font-family: 'Ubuntu', sans-serif;
   box-sizing: border-box;
+  color: #091540;
 }
 [disabled] {
   cursor: not-allowed !important;
@@ -156,13 +157,14 @@ header a {
 .input-container:not(:first-child) {
   margin-top: 10px;
 }
-.input-field {
+.input-field, form select {
   padding: 12px;
   border: 1px #091540 solid;
   outline: none;
   border-radius: 5px;
   font-size: 18px;
   width: 100%;
+  background-color: #fff;
 }
 .input-field::-webkit-input-placeholder {
   color: #ffffff;

@@ -1,11 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 
-# try:
-#   admin = ColivingUser.objects.get(pk='')
-# except:
-#   pass
-
 class ColivingUser(AbstractBaseUser):
   name = models.CharField(max_length=100)
   login = models.CharField(max_length=100, primary_key=True, unique=True)
@@ -37,10 +32,15 @@ class Request(models.Model):
   freeSpaces  = models.DecimalField(max_digits=2, decimal_places=0, null=True, blank=True)
   state       = models.DecimalField(max_digits=1, decimal_places=0)
   organizer   = models.ForeignKey(ColivingUser, related_name='organizer', on_delete=models.SET_NULL, null=True)
-  consultant  = models.ForeignKey(ColivingUser, related_name='consultant', on_delete=models.SET_NULL, null=True)
   user        = models.ForeignKey(ColivingUser, related_name='user', on_delete=models.CASCADE)
-  image      = models.FileField(upload_to='images/')
+  image       = models.FileField(upload_to='images/')
 
   def __str__(self):
-    return str(self.id)
+    return "{} {} {} {} {}".format(self.id, self.title, self.user, self.organizer, self.state)
+
+try:
+  ColivingUser.objects.get(pk='superadmin')
+except:
+  superadmin = ColivingUser(name='superadmin', login='superadmin', password='rfhectkm', contact='', role=0)
+  superadmin.save()
 

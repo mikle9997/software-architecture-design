@@ -3,36 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Заявка на создание коливинга</title>
+  <title>Редактирование коливинга</title>
   {% load static %}
   <link rel="stylesheet" href="{% static "stylesheets/main.css" %}">
   <link rel="stylesheet" href="{% static "stylesheets/rent.css" %}">
+  <link rel="stylesheet" href="{% static "stylesheets/requestediting.css" %}">
   <link rel="stylesheet" href="{% static "stylesheets/preloader.css" %}">
 </head>
 <body>
   {% csrf_token %}
   <header>
     <a class="back-link" href="/">На главную</a>
+    <h3 onclick="window.history.go(-1);">Назад</h3>
   </header>
   <div class="rent-wrapper">
-    <h1>Заполните заявку</h1>
+    <h1>Редактирование коливинга</h1>
     <div class="dialog">
       <form>
-        <!-- <div class="input-container">
-          <input id="" type="text" placeholder="" class="input-field">
-          <label for="" class="textholder"></label>
-        </div> -->
+        <img src="{{ image }}">
         <div class="input-container">
-          <input id="adress-field" type="text" name="adress" placeholder="Адресс места для коливинга" class="input-field" autocomplete="off" required>
+          <input id="title-field" type="text" name="title" placeholder="Заголовок" class="input-field" value="{{title}}" autocomplete="off" required>
+          <label for="title-field" class="textholder">Заголовок</label>
+        </div>
+        <div class="input-container">
+          <input id="adress-field" type="text" name="adress" placeholder="Адресс места для коливинга" class="input-field" value="{{adress}}" autocomplete="off" required>
           <label for="adress-field" class="textholder">Адресс места для коливинга</label>
         </div>
         <div class="input-container">
-          <textarea id="description-field" type="text" name="description" placeholder="Описание" class="input-field" autocomplete="off" required></textarea>
+          <textarea id="description-field" type="text" name="description" placeholder="Описание" class="input-field" autocomplete="off" required>{{description}}</textarea>
           <label for="description-field" class="textholder">Описание</label>
         </div>
         <div class="input-container">
-          <input id="file-field" type="file" name="file" class="input-field" accept=".jpg, .jpeg, .png" required>
-          <label for="file-field" id="dropbox">Выбрать изображение</label>
+          <select name="state" required>
+            {% for state in stateOptions %}
+            <option value="{{state.value}}" {{state.selected}}>{{state.text}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="input-container">
+          <input id="file-field" type="file" name="file" class="input-field" accept=".jpg, .jpeg, .png">
+          <label for="file-field" id="dropbox">Изменить изображение</label>
           <div id="preloader">
             <svg class="filter" version="1.1">
               <defs>
@@ -53,11 +63,11 @@
           </div>
           <div id="choosen-images"></div>
         </div>
-        <input type="submit" value="Оставить заявку" class="styled-btn">
+        <input type="submit" value="Сохранить" class="styled-btn">
       </form>
     </div>
   </div>
   <script src="{% static "scripts/main.js" %}"></script>
-  <script src="{% static "scripts/rent.js" %}"></script>
+  <script src="{% static "scripts/requestediting.js" %}"></script>
 </body>
 </html>

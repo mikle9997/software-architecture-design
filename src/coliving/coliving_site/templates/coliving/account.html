@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>{{name}}</title>
   {% load static %}
   <link rel="stylesheet" href="{% static "stylesheets/main.css" %}">
   <link rel="stylesheet" href="{% static "stylesheets/account.css" %}">
@@ -31,6 +31,12 @@
           {% endif %}
         </button>
         <button class="menu-btn tablinks" onclick="openTab(event, '2')">Личная информация</button>
+        {% if isSuper %}
+        <button class="menu-btn tablinks" onclick="openTab(event, '3')">Список аккаунтов</button>
+        {% endif %}
+        {% if roleOrganizer %}
+        <button class="menu-btn tablinks" onclick="openTab(event, '3')">Список принятых заявок</button>
+        {% endif %}
       </div>
     </div>
     <div class="col4">
@@ -39,23 +45,24 @@
           <h3>Список</h3>
           <div class="requests-list">
             {% for request in requests %}
-            <a href="">
+            <div>
               <div class="request">
-                {% if request.isWatching %}
-                  <div class="state watching">На рассмотрении</div>
-                {% elif request.isOk %}
-                  <div class="state submit">Одобрено</div>
-                {% elif request.isBad %}
-                  <div class="state cancel">Отклонено</div>
-                {% endif %}
+                <div class="state {{request.stateClass}}">{{request.stateText}}</div>
                 <img src="{% get_media_prefix %}{{ request.image }}">
                 <div class="text">
-                  <p>{{request.title}}</p>
-                  <p>{{request.description}}</p>
+                  <p>{{ request.title }}</p>
+                  <p>{{ request.adress }}</p>
+                  <p>{{ request.description }}</p>
+                  {% if roleOrganizer %}
+                  <p><button class="styled-btn" onclick="choose('{{ request.id }}')">Добавить в свой список</button></p>
+                  {% endif %}
+                  <p><a href="announcemet/{{ request.id }}"><button class="styled-btn">Перейти к странице коливинга</button></a></p>
                 </div>
               </div>
-            </a>
-            {% endfor%}
+            </div>
+            {% empty %}
+              Список пуст
+            {% endfor %}
           </div>
         </div>
         <div id="2" class="tabcontent">
@@ -78,6 +85,62 @@
             <input type="submit" value="Изменить информацию" class="styled-btn">
           </form>
         </div>
+        {% if isSuper %}
+        <div id="3" class="tabcontent">
+          <h3>Список аккаунтов</h3>
+          <a href="adminpage/create">
+            <button class="styled-btn">Создать новый аккаунт</button>
+          </a>
+          <div class="accs-list">
+            <p>Имя</p>
+            <p>Логин</p>
+            <p>Пароль</p>
+            <p>Контакт</p>
+            <p>Роль</p>
+            <p></p>
+            <p></p>
+            {% for acc in accounts %}
+              <p>{{ acc.name }}</p>
+              <p>{{ acc.login }}</p>
+              <p>{{ acc.password }}</p>
+              <p>{{ acc.contact }}</p>
+              <p>
+                {% if acc.isUser %}
+                  user
+                {% elif acc.isOrganizer %}
+                  organizer
+                {% elif acc.isConsultant %}
+                  consultant
+                {% endif %}
+              </p>
+              <p><a href="adminpage/change/{{acc.login}}"><button class="styled-btn">Редактировать</button></a></p>
+              <p><button class="styled-btn" onclick="deleteUser('{{acc.login}}')">Удалить</button></p>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        {% if roleStaff and not isSuper %}
+        <div id="3" class="tabcontent">
+          <h3>Список принятых заявок</h3>
+          <div class="requests-list">
+            {% for request in accepted %}
+            <a href="requestediting/{{ request.id }}">
+              <div class="request">
+                <div class="state {{request.stateClass}}">{{request.stateText}}</div>
+                <img src="{% get_media_prefix %}{{ request.image }}">
+                <div class="text">
+                  <p>{{ request.title }}</p>
+                  <p>{{ request.adress }}</p>
+                  <p>{{ request.description }}</p>
+                </div>
+              </div>
+            </a>
+            {% empty %}
+              Список пуст
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
       </div>
     </div>
   </div>
