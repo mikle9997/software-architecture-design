@@ -34,6 +34,10 @@
           <label for="description-field" class="textholder">Описание</label>
         </div>
         <div class="input-container">
+          <input id="freespaces-field" type="number" name="freespaces" placeholder="Количество свободных мест" class="input-field" value="{{freespaces}}" autocomplete="off" required>
+          <label for="freespaces-field" class="textholder">Количество свободных мест</label>
+        </div>
+        <div class="input-container">
           <select name="state" required>
             {% for state in stateOptions %}
             <option value="{{state.value}}" {{state.selected}}>{{state.text}}</option>

@@ -102,7 +102,8 @@ def rent(request):
       description=queryPost.get('description'),
       image=request.FILES['file'],
       state=0,
-      user=user
+      user=user,
+      freeSpaces=0
     )
     req.save()
 
@@ -130,6 +131,7 @@ def announcemet(request, id=0):
     'adress': req.adress,
     'contact': req.organizer.contact,
     'name': req.organizer.name,
+    'freespaces': req.freeSpaces
   }
   return render(request, 'coliving/announcemet.html', context)
 
@@ -148,7 +150,7 @@ def account(request):
     requests = list(
         map(
           lambda x: {
-            'stateText': 'Одобрено' if x.state == 1 else 'Отклонено' if x.state == 2 else 'На рассмотрении',
+            'stateText': 'Одобрено' if x.state == 1 else 'Отклонено' if x.state == 2 else 'На рассмотрении' if x.state == 0 else 'Реализация проекта',
             'stateClass': 'submit' if x.state == 1 else 'cancel' if x.state == 2 else 'watching',
             'title': x.title,
             'adress': x.adress,
@@ -186,7 +188,7 @@ def account(request):
     acceptedRequests = list(
         map(
           lambda x: {
-            'stateText': 'Одобрено' if x.state == 1 else 'Отклонено' if x.state == 2 else 'На рассмотрении',
+            'stateText': 'Одобрено' if x.state == 1 else 'Отклонено' if x.state == 2 else 'На рассмотрении' if x.state == 0 else 'Реализация проекта',
             'stateClass': 'submit' if x.state == 1 else 'cancel' if x.state == 2 else 'watching',
             'title': x.title,
             'adress': x.adress,
@@ -388,7 +390,8 @@ def requestEditing(request, id=0):
       'image': req.image.url,
       'adress': req.adress,
       'description': req.description,
-      'stateOptions': stateOptions
+      'stateOptions': stateOptions,
+      'freespaces': req.freeSpaces
     }
     
     return render(request, 'coliving/requestediting.html', context)
@@ -403,6 +406,7 @@ def requestEditing(request, id=0):
     req.adress      = queryPost.get('adress')
     req.description = queryPost.get('description')
     req.state       = int(queryPost.get('state'))
+    req.freeSpaces  = int(queryPost.get('freespaces'))
     req.save()
 
     return HttpResponse(status=200)
