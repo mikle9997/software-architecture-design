@@ -19,7 +19,6 @@ document.querySelector('#search-field').addEventListener('change', event => {
     }).then(response => {
       return response.json()
     }).then(data => {
-      console.log('asd')
       output.innerHTML = ''
       if (data.length == 0) {
         output.innerHTML = '<h4>Ничего не найдено</h4>'
@@ -47,4 +46,25 @@ const loadAnnouncenets = coliving => {
     </div></a>`
 }
 
+document.querySelector('#search-consultant button').addEventListener('click', e => {
+  const consultantOutput = document.querySelector('#output')
 
+  let request = new Request(
+    'getconsultant',
+    { headers: {'X-CSRFToken': csrfToken} }
+  )
+
+  fetch(request, {
+    method: 'POST',
+    mode: 'same-origin',
+  }).then(response => {
+    return response.json()
+  }).then(data => {
+    consultantOutput.innerHTML = `
+      <p>Имя: ${data.name}</p>
+      <p>Контакты: ${data.contact}</p>
+    `
+    e.target.parentNode.style['background-color'] = '#fff'
+    e.target.parentNode.style['box-shadow'] = '0 0 10px #0005'
+  })
+})

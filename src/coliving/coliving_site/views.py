@@ -5,6 +5,7 @@ from .models import Request
 
 import json
 import re
+import random
 
 def index(request):
       ### !!! WARNING !!! ###
@@ -23,7 +24,7 @@ def index(request):
   try:
     user = ColivingUser.objects.get(pk = userLogin)
   except:
-    userLogin = None
+    user = None
 
   context = {
     'logined': userLogin != None,
@@ -37,7 +38,7 @@ def search(request):
   try:
     user = ColivingUser.objects.get(pk = userLogin)
   except:
-    userLogin = None
+    user = None
 
   if userLogin == None:
     return redirect('/')
@@ -62,12 +63,31 @@ def search(request):
       'adress': x.adress,
     }, colivings))), status=200)
 
+def getConsultant(request):
+  userLogin = request.session.get('login', None)
+  try:
+    user = ColivingUser.objects.get(pk = userLogin)
+  except:
+    user = None
+
+  if userLogin == None:
+    return HttpResponse(status=403)
+
+  return HttpResponse(json.dumps(random.choice(
+    list(
+      map(
+        lambda x: {'name': x.name, 'contact': x.contact}, 
+        filter(lambda x: x.isConsultant(), ColivingUser.objects.all())
+      )
+    )
+  )), status=200)
+
 def rent(request):
   userLogin = request.session.get('login', None)
   try:
     user = ColivingUser.objects.get(pk = userLogin)
   except:
-    userLogin = None
+    user = None
   
   if request.method == 'GET':
     if userLogin == None:
@@ -108,6 +128,8 @@ def announcemet(request, id=0):
     'description': req.description,
     'image': req.image.url,
     'adress': req.adress,
+    'contact': req.organizer.contact,
+    'name': req.organizer.name,
   }
   return render(request, 'coliving/announcemet.html', context)
 
@@ -116,7 +138,7 @@ def account(request):
   try:
     user = ColivingUser.objects.get(pk = userLogin)
   except:
-    userLogin = None
+    user = None
 
   if userLogin == None:
     return redirect('/')
@@ -239,7 +261,7 @@ def admin(request, action = '', actionLogin = ''):
   try:
     user = ColivingUser.objects.get(pk = userLogin)
   except:
-    userLogin = None
+    user = None
 
   if userLogin == None or not user.isAdmin():
     return redirect('/')
@@ -319,7 +341,7 @@ def chooseRequest(request):
   try:
     user = ColivingUser.objects.get(pk = userLogin)
   except:
-    userLogin = None
+    user = None
 
   if userLogin == None or (not user.isConsultant() and not user.isOrganizer()):
     return redirect('/')
@@ -343,7 +365,7 @@ def requestEditing(request, id=0):
   try:
     user = ColivingUser.objects.get(pk = userLogin)
   except:
-    userLogin = None
+    user = None
 
   if userLogin == None or (not user.isConsultant() and not user.isOrganizer()):
     return redirect('/')

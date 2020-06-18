@@ -80,3 +80,16 @@
     opacity: 1;
   }
 }
+#search-consultant {
+  position: fixed;
+  right: 36px;
+  bottom: 36px;
+  padding: 12px;
+  transition: 0.3s;
+  border-radius: 20px;
+  text-align: center;
+}
+#output {
+  padding: 12px;
+  text-align: left;
+}

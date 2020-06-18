@@ -16,6 +16,7 @@ urlpatterns = [
   path('adminpage/<action>', views.admin),
   path('adminpage/<action>/<actionLogin>', views.admin),
   path('requestediting/<int:id>', views.requestEditing),
+  path('getconsultant', views.getConsultant),
   path('', views.index),
 ]
 
