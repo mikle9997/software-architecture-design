@@ -54,7 +54,10 @@
                   <p>{{ request.adress }}</p>
                   <p>{{ request.description }}</p>
                   {% if roleOrganizer %}
-                  <p><button class="styled-btn" onclick="choose('{{ request.id }}')">Добавить в свой список</button></p>
+                  <p><button class="styled-btn" onclick="choose({{ request.id }})">Добавить в свой список</button></p>
+                  {% endif %}
+                  {% if roleUser %}
+                  <p><button class="styled-btn" onclick="deleteRequest({{ request.id }})">Удалить заявку</button></p>
                   {% endif %}
                   <p><a href="announcemet/{{ request.id }}"><button class="styled-btn">Перейти к странице коливинга</button></a></p>
                 </div>
@@ -94,7 +97,6 @@
           <div class="accs-list">
             <p>Имя</p>
             <p>Логин</p>
-            <p>Пароль</p>
             <p>Контакт</p>
             <p>Роль</p>
             <p></p>
@@ -102,7 +104,6 @@
             {% for acc in accounts %}
               <p>{{ acc.name }}</p>
               <p>{{ acc.login }}</p>
-              <p>{{ acc.password }}</p>
               <p>{{ acc.contact }}</p>
               <p>
                 {% if acc.isUser %}
@@ -132,6 +133,7 @@
                   <p>{{ request.title }}</p>
                   <p>{{ request.adress }}</p>
                   <p>{{ request.description }}</p>
+                  <p><b>Владелец: {{ request.name }}, {{ request.contact }}</b></p>
                 </div>
               </div>
             </a>

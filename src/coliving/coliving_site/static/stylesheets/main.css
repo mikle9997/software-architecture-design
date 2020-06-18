@@ -240,3 +240,10 @@ form textarea {
 .ok-msg {
   color: #4CAF50;
 }
+hr {
+  background-color: #091540;
+  margin: 20px 0;
+  height: 1px;
+  width: 100%;
+  border: none;
+}

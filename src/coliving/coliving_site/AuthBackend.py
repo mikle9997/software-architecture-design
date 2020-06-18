@@ -1,4 +1,4 @@
-from .models import ColivingUser
+from .models import ColivingUser, hashString
 
 class AuthBackend():
 
@@ -6,7 +6,7 @@ class AuthBackend():
   def authenticate(login, password):
     try:
       user = ColivingUser.objects.get(pk = login)
-      if user.password == password:
+      if user.password == hashString(password):
         return user
       return None
     except:

@@ -21,6 +21,16 @@
       <p>Осталось мест: {{ freespaces }}</p>
       <p class="adress">Адрес: {{ adress }}</p>
       <p class="footer">Организатор коливинга: {{ name }}, {{ contact }}</p>
+      {% if isThisOrganizer %}
+      <hr>
+      <p>Владелец: {{ ownerName }} {{ ownerContact }}</p>
+      {% endif %}
+      {% if isOwner and hasProject %}
+      <a href="{{ projectFile }}" download="Проект">
+        <img src="{% static "images/pdf-icon.png" %}" alt="pdf" class="download-icon">
+        <p>Скачать проект</p>
+      </a>
+      {% endif %}
     </div>
   </div>
   <script src="{% static "scripts/main.js" %}"></script>

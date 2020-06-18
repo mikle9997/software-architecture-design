@@ -3,3 +3,11 @@
   border-radius: 3px;
   margin-bottom: 12px;
 }
+.input-container a img {
+  width: 32px;
+  margin: 0;
+}
+.input-container a img ~ p {
+  margin: 0;
+  font-size: 16px;
+}

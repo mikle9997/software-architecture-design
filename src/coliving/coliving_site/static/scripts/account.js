@@ -74,3 +74,24 @@ const choose = id => {
     }
   })
 }
+
+const deleteRequest = id => {
+  let request = new Request(
+    'deleterequest',
+    { headers: {'X-CSRFToken': csrfToken} }
+  )
+
+  const data = {id: id}
+
+  fetch(request, {
+    method: 'POST',
+    mode: 'same-origin',
+    body: JSON.stringify(data)
+  }).then(response => {
+    if (response.status == 200) {
+      window.location.reload()
+    } else {
+      alert('Возникли непредвиденные проблемы. Попробуйте позже')
+    }
+  })
+}

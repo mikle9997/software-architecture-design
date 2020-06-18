@@ -67,6 +67,17 @@
           </div>
           <div id="choosen-images"></div>
         </div>
+        <div class="input-container">
+          <label for="project-field">Добавить/изменить файл с проектом</label>
+          <input id="project-field" type="file" name="project" class="input-field">
+          {% if hasProject %}
+          <p>Сейчас выбран: {{ project }}</p>
+          <a href="{{ projectFile }}" download="Проект">
+            <img src="{% static "images/pdf-icon.png" %}" alt="pdf" class="download-icon">
+            <p>Скачать проект</p>
+          </a>
+          {% endif %}
+        </div>
         <input type="submit" value="Сохранить" class="styled-btn">
       </form>
     </div>

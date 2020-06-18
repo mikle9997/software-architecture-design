@@ -131,8 +131,18 @@ def announcemet(request, id=0):
     'adress': req.adress,
     'contact': req.organizer.contact,
     'name': req.organizer.name,
-    'freespaces': req.freeSpaces
+    'freespaces': req.freeSpaces,
+    'isThisOrganizer': req.organizer == user,
+    'ownerName': req.user.name,
+    'ownerContact': req.user.contact,
+    'isOwner': req.user == user,
+    'hasProject': False
   }
+
+  if req.project:
+    context['hasProject'] = True
+    context['projectFile'] = req.project.url
+
   return render(request, 'coliving/announcemet.html', context)
 
 def account(request):
@@ -144,7 +154,6 @@ def account(request):
 
   if userLogin == None:
     return redirect('/')
-
 
   try:
     requests = list(
@@ -175,7 +184,6 @@ def account(request):
         lambda x: {
           'name': x.name,
           'login': x.login,
-          'password': x.password,
           'contact': x.contact,
           'isUser': x.isUser(),
           'isOrganizer': x.isOrganizer(),
@@ -194,7 +202,9 @@ def account(request):
             'adress': x.adress,
             'description': x.description,
             'image': x.image,
-            'id': x.id
+            'id': x.id,
+            'name': x.user.name,
+            'contact': x.user.contact,
           }, filter(lambda x: user.isOrganizer() and x.organizer == user,
           Request.objects.all())
         )
@@ -231,7 +241,8 @@ def register(request):
   if AuthBackend.getUser(body['login']) != None:
     return HttpResponse(status=403)
 
-  user = ColivingUser(name=body['name'], login=body['login'], password=body['pass'], contact=body['contact'], role=1)
+  user = ColivingUser(name=body['name'], login=body['login'], password='', contact=body['contact'], role=1)
+  user.setHashedPassword(body['pass'])
   user.save()
   request.session['login'] = body['login']
   
@@ -250,7 +261,7 @@ def changeInfo(request):
     user = ColivingUser.objects.get(pk = userLogin)
 
     user.name     = body['name']
-    user.password = body['password']
+    user.setHashedPassword(body['password'])
     user.contact  = body['contact']
     user.save()
 
@@ -297,10 +308,11 @@ def admin(request, action = '', actionLogin = ''):
       userAcc = ColivingUser(
         name     = queryPost.get('name'),
         login    = queryPost.get('login'),
-        password = queryPost.get('password'),
+        password = '',
         contact  = queryPost.get('contact'),
         role     = queryPost.get('role')
       )
+      userAcc.setHashedPassword(queryPost.get('password'))
       userAcc.save()
 
       return HttpResponse(status=200)
@@ -391,8 +403,13 @@ def requestEditing(request, id=0):
       'adress': req.adress,
       'description': req.description,
       'stateOptions': stateOptions,
-      'freespaces': req.freeSpaces
+      'freespaces': req.freeSpaces,
+      'hasProject': False
     }
+
+    if req.project:
+      context['hasProject'] = True
+      context['project'] = req.project.name
     
     return render(request, 'coliving/requestediting.html', context)
   elif request.method == 'POST':
@@ -400,6 +417,10 @@ def requestEditing(request, id=0):
 
     try:
       req.image = request.FILES['file']
+    except:
+      pass
+    try:
+      req.project = request.FILES['project']
     except:
       pass
     req.title       = queryPost.get('title')
@@ -411,3 +432,24 @@ def requestEditing(request, id=0):
 
     return HttpResponse(status=200)
   
+
+def deleteRequest(request):
+  userLogin = request.session.get('login', None)
+  try:
+    user = ColivingUser.objects.get(pk = userLogin)
+  except:
+    user = None
+
+  if userLogin == None:
+    return HttpResponse(status=403)
+
+  try:
+    req = Request.objects.get(pk=json.loads(request.read())['id'])
+  except:
+    return HttpResponse(status=403)
+
+  if req.user == user:
+    req.delete()
+    return HttpResponse(status=200)
+  else:
+    return HttpResponse(status=403)
