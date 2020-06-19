@@ -74,6 +74,7 @@
   position: relative;
   border-radius: 5px;
   overflow: hidden;
+  height: 300px;
 }
 .request img {
   width: 100%;
@@ -93,6 +94,9 @@
 }
 .request:hover .text {
   transform: translateY(0);
+}
+.text p, .text p b {
+  color: #fff;
 }
 .text p:first-child {
   font-weight: 700;
@@ -118,4 +122,25 @@
 }
 #data-form {
   margin: 24px 0;
+}
+.accs-list {
+  margin: 24px 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+.accs-list p {
+  padding: 12px;
+  text-align: center;
+}
+.accs-list p:nth-of-type(-n + 6) {
+  border-bottom: 1px solid #091540;
+}
+.accs-list p:nth-of-type(12n + 1),
+.accs-list p:nth-of-type(12n + 2),
+.accs-list p:nth-of-type(12n + 3),
+.accs-list p:nth-of-type(12n + 4),
+.accs-list p:nth-of-type(12n + 5),
+.accs-list p:nth-of-type(12n + 6)
+{
+  background-color: #0001;
 }

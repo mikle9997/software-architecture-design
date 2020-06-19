@@ -32,3 +32,66 @@ document.querySelector('#data-form').addEventListener('submit', e => {
     }
   })
 })
+
+const deleteUser = login => {
+  let request = new Request(
+    'adminpage/delete',
+    { headers: {'X-CSRFToken': csrfToken} }
+  )
+
+  const data = {login: login}
+
+  fetch(request, {
+    method: 'POST',
+    mode: 'same-origin',
+    body: JSON.stringify(data)
+  }).then(response => {
+    if (response.status == 200) {
+      window.location.reload()
+    } else {
+      alert('Возникли непредвиденные проблемы. Попробуйте позже')
+    }
+  })
+}
+
+const choose = id => {
+  let request = new Request(
+    'chooserequest',
+    { headers: {'X-CSRFToken': csrfToken} }
+  )
+
+  const data = {id: id}
+
+  fetch(request, {
+    method: 'POST',
+    mode: 'same-origin',
+    body: JSON.stringify(data)
+  }).then(response => {
+    if (response.status == 200) {
+      window.location.reload()
+    } else {
+      alert('Возникли непредвиденные проблемы. Попробуйте позже')
+    }
+  })
+}
+
+const deleteRequest = id => {
+  let request = new Request(
+    'deleterequest',
+    { headers: {'X-CSRFToken': csrfToken} }
+  )
+
+  const data = {id: id}
+
+  fetch(request, {
+    method: 'POST',
+    mode: 'same-origin',
+    body: JSON.stringify(data)
+  }).then(response => {
+    if (response.status == 200) {
+      window.location.reload()
+    } else {
+      alert('Возникли непредвиденные проблемы. Попробуйте позже')
+    }
+  })
+}

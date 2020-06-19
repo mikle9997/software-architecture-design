@@ -7,3 +7,24 @@
   margin: 0 auto;
   width: 1000px;
 }
+.dialog img {
+  width: 100%;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+.dialog .adress {
+  font-size: 18px;
+}
+.dialog .footer {
+  margin-top: 24px;
+  font-size: 18px;
+}
+.dialog .download-icon {
+  width: 32px;
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+.dialog .download-icon ~ p {
+  margin: 0;
+  font-size: 16px;
+}

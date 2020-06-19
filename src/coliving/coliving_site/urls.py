@@ -6,12 +6,18 @@ from . import views
 urlpatterns = [
   path('search', views.search),
   path('rent', views.rent),
-  path('announcemet', views.announcemet),
+  path('announcemet/<int:id>', views.announcemet),
   path('account', views.account),
   path('login', views.login),
   path('register', views.register),
   path('logout', views.logout),
   path('changeinfo', views.changeInfo),
+  path('chooserequest', views.chooseRequest),
+  path('deleterequest', views.deleteRequest),
+  path('adminpage/<action>', views.admin),
+  path('adminpage/<action>/<actionLogin>', views.admin),
+  path('requestediting/<int:id>', views.requestEditing),
+  path('getconsultant', views.getConsultant),
   path('', views.index),
 ]
 
