@@ -129,9 +129,9 @@ def announcemet(request, id=0):
     'description': req.description,
     'image': req.image.url,
     'adress': req.adress,
-    'contact': req.organizer.contact,
-    'name': req.organizer.name,
     'freespaces': req.freeSpaces,
+    'contact': '',
+    'name': '-',
     'isThisOrganizer': req.organizer == user,
     'ownerName': req.user.name,
     'ownerContact': req.user.contact,
@@ -142,6 +142,10 @@ def announcemet(request, id=0):
   if req.project:
     context['hasProject'] = True
     context['projectFile'] = req.project.url
+      
+  if req.organizer:
+    context['contact'] = req.organizer.contact
+    context['name'] = req.organizer.name
 
   return render(request, 'coliving/announcemet.html', context)
 
